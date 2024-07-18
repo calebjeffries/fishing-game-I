@@ -1,0 +1,8 @@
+#!/bin/bash
+trap clear INT
+if [ $EUID != 0 ]; then
+echo -e "[0;31mPlease run this game as root
+[0;32mtry sudo fishing"
+exit
+fi
+/usr/lib/fishing/Main

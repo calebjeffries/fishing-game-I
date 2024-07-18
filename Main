@@ -1,0 +1,1017 @@
+#!/bin/bash
+loadpicture1="\n\033[0;34m█████████████  ██     ████  ██     ██  ██  ██        ██       ██████\n██             ██    ██     ██     ██  ██  ████      ██     ███    ███\n██             ██   ██      ██     ██  ██  ██ ██     ██   ███\n██             ██    ███    ██     ██  ██  ██  ██    ██  ██\n████████       ██      ██   █████████  ██  ██   ██   ██  ██\n██             ██       ██  ██     ██  ██  ██    ██  ██  ██        ███\n██             ██       ██  ██     ██  ██  ██     ██ ██   ███        █\n██             ██     ███   ██     ██  ██  ██      ████     ███    ███\n██             ██  ████     ██     ██  ██  ██        ██       ██████\n"
+loadpicture2="\033[0;31m███████  ███████  ███████████  ██████\n██       ██    █  ██   ██  ██  ██\n██   ██  ███████  ██   ██  ██  ████\n██    █  ██    █  ██   ██  ██  ██\n███████  ██    █  ██       ██  ██████"
+die() {
+echo -e "[0;31myou die. you will now restart[0m"
+echo -e "$un died" >> /usr/share/Fishing/Sys/News
+echo "0" > /usr/share/Fishing/Chars/FishingLevel$un
+echo "1" > /usr/share/Fishing/Chars/FishingRod$un
+echo "1" > /usr/share/Fishing/Chars/FishingFight$un
+echo "0" > /usr/share/Fishing/Chars/Aquarium$un
+echo "1" > /usr/share/Fishing/Chars/AquariumSpace$un
+echo "1" > /usr/share/Fishing/Chars/FishingTime$un
+echo "n" > /usr/share/Fishing/Chars/FishingHunger$un
+echo "0" > /usr/share/Fishing/Chars/FishingGas$un
+echo "n" > /usr/share/Fishing/Chars/Subscription$un
+echo -e "1
+0" > /usr/share/Fishing/Chars/Quest$un
+turnnum="0"
+}
+eat() {
+if [ $(($(cat /usr/share/Fishing/Chars/FishingGas$un) > 0)) == "1" ]; then
+echo "y" > /usr/share/Fishing/Chars/FishingHunger$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingGas$un) - 1)) > /usr/share/Fishing/Chars/FishingGas$un
+else
+echo -e "[1;31myou don't have enough gas[0m"
+fi
+}
+clear
+echo -e "[1;32mcopyright caleb jeffries 2022"
+echo -e "[1;35mLOADING...
+[------]"
+echo -e "$loadpicture1"
+echo -e "$loadpicture2"
+if [ "$(ls 2>/dev/null /usr/share/Fishing)" == "" ]; then
+echo -e "[1;31mthe main directory MAY not exist. we are tring to make a new one"
+mkdir /usr/share/Fishing
+fi
+sleep 0.25
+clear
+echo -e "[1;32mcopyright caleb jeffries 2022"
+echo -e "[1;35mLOADING...
+[#-----]"
+echo -e "$loadpicture1"
+echo -e "$loadpicture2"
+if [ "$(ls 2>/dev/null /usr/share/Fishing/Chars)" == "" ]; then
+echo -e "[1;31ma directory MAY not exist. we are tring to make a new one"
+mkdir /usr/share/Fishing/Chars
+fi
+sleep 0.25
+clear
+echo -e "[1;32mcopyright caleb jeffries 2022"
+echo -e "[1;35mLOADING...
+[##----]"
+echo -e "$loadpicture1"
+echo -e "$loadpicture2"
+if [ "$(ls 2>/dev/null /usr/share/Fishing/Sys)" == "" ]; then
+echo -e "[1;31ma directory MAY not exist. we are tring to make a new one"
+mkdir /usr/share/Fishing/Sys
+fi
+sleep 0.25
+clear
+echo -e "[1;32mcopyright caleb jeffries 2022"
+echo -e "[1;35mLOADING...
+[###---]"
+echo -e "$loadpicture1"
+echo -e "$loadpicture2"
+if [ "$(ls 2>/dev/null /usr/share/Fishing/Sys/FishingAdmin)" == "" ]; then
+echo -e "[1;31mthe admin is not found. we are making a new one. who do you want it to be? [s = skip]"
+read admin
+if [ "$admin" == "s" ] || [ "$admin" == "S" ]; then
+echo "skipped"
+elif [ "$(cat 2>/dev/null /usr/share/Fishing/Sys/.FishingPassword | grep $admin)" != "" ]; then
+echo "$admin" > /usr/share/Fishing/Sys/FishingAdmin
+else
+echo -e "[0;31muser not found"
+exit
+fi
+fi
+sleep 0.25
+clear
+echo -e "[1;32mcopyright caleb jeffries 2022"
+echo -e "[1;35mLOADING...
+[####--]"
+echo -e "$loadpicture1"
+echo -e "$loadpicture2"
+if [ "$(ls 2>/dev/null /usr/share/Fishing/Sys/News)" == "" ]; then
+echo -e "[1;31man important file is not found. we are making a new one"
+touch /usr/share/Fishing/Sys/News
+fi
+sleep 0.25
+clear
+echo -e "[1;32mcopyright caleb jeffries 2022"
+echo -e "[1;35mLOADING...
+[#####-]"
+echo -e "$loadpicture1"
+echo -e "$loadpicture2"
+if [ "$(ls 2>/dev/null /usr/share/Fishing/Sys/Lotto)" == "" ]; then
+echo -e "[1;31man important file is not found. we are making a new one"
+touch /usr/share/Fishing/Sys/Lotto
+fi
+sleep 0.25
+clear
+echo -e "[1;32mcopyright caleb jeffries 2022"
+echo -e "[1;35mLOADING...
+[######]"
+echo -e "$loadpicture1"
+echo -e "$loadpicture2"
+if [ "$(ls 2>/dev/null /usr/share/Fishing/Sys/Ticket)" == "" ]; then
+echo -e "[1;31man important file is not found. we are making a new one"
+touch /usr/share/Fishing/Sys/Ticket
+fi
+sleep 0.25
+clear
+echo -en "[1;35mpress a for advanced startup options, b for the rules and enter to continue
+>"
+read startup
+if [ "$startup" == "a" ]; then
+echo -n "what is the admin's password: "
+read -s adminpass
+adminlng="$(cat /usr/share/Fishing/Sys/FishingAdmin) $(echo $adminpass | openssl sha512)"
+adminlnt="$(cat /usr/share/Fishing/Sys/.FishingPassword | grep $(cat /usr/share/Fishing/Sys/FishingAdmin))"
+if [ "$adminlng" == "$adminlnt" ]; then
+echo "would you like to restart a user [a], clear the newspaper [b], restart the lottery [c], delete a user's files [d] or exit [e]?"
+read adminact
+if [ "$adminact" == "a" ]; then
+echo "who do you want to restart?"
+read und
+if [ "$(cat /usr/share/Fishing/Sys/.FishingPassword | grep $und)" != "" ]; then
+echo "0" > /usr/share/Fishing/Chars/FishingLevel$und
+echo "1" > /usr/share/Fishing/Chars/FishingRod$und
+echo "1" > /usr/share/Fishing/Chars/FishingFight$und
+echo "0" > /usr/share/Fishing/Chars/Aquarium$und
+echo "1" > /usr/share/Fishing/Chars/AquariumSpace$und
+echo "1" > /usr/share/Fishing/Chars/FishingTime$und
+echo "n" > /usr/share/Fishing/Chars/FishingHunger$und
+echo "0" > /usr/share/Fishing/Chars/FishingGas$und
+echo "n" > /usr/share/Fishing/Chars/Subscription$und
+echo -e "1
+0" > /usr/share/Fishing/Chars/Quest$un
+echo "$und was restarted"
+else
+echo "user not found"
+fi
+elif [ "$adminact" == "b" ]; then
+echo -n "" > /usr/share/Fishing/Sys/News
+echo "there are no longer any headlines in the newspaper"
+elif [ "$adminact" == "c" ]; then
+echo -n "" > /usr/share/Fishing/Sys/Ticket
+echo "there are no longer any lottery tickets and the prize is now 0 dollars"
+elif [ "$adminact" == "d" ]; then
+echo "whose files do you want to delete?"
+read und
+if [ "$(cat /usr/share/Fishing/Sys/.FishingPassword | grep $und)" != "" ]; then
+rm /usr/share/Fishing/Chars/*$und
+echo "$und""'s files were deleted"
+else
+echo "user not found"
+fi
+fi
+else
+echo "incorrect password"
+fi
+elif [ "$startup" == "b" ]; then
+clear
+echo -e "[1;33myou live in a town near a lake. all the users live in this town. when you first start, you will be given the option of going fishing, buying somthing, going to the restaurant, going to the arena and a few other options. going fishing will make you go fishing and catch things. you can start to catch monsters at level 7. buying something allows you to upgrade your stuff (like your fishing rod). going to the restaurant means you pay 3 dollar and don't have to eat again that day (a day is ten moves). if you don't eat in a day, you die and loose all your stuff. if you go to the Monsters Here Gas Station, you get a chance to fight monsters for gas. you need gas to eat or sell fish. if you loose, you have to pay 1 dollar. the other options do exactly what they say. later you will get to buy a newspaper subscription. sometimes you will get speceial offers in the newspaper"
+else
+clear
+echo -e "[1;36mwelcome to the fishing game"
+echo "do you have an account? [y/n]"
+read hvacnt
+if [ "$hvacnt" == "n" ]; then
+echo "what do you want your username to be?"
+read newun
+echo -n "what do you want your password to be: "
+read -s newpasswd1
+newpasswd2=$(echo "$newpasswd1" | openssl sha512)
+echo "$newun $newpasswd2" >> /usr/share/Fishing/Sys/.FishingPassword
+echo "0" > /usr/share/Fishing/Chars/FishingLevel$newun
+echo "1" > /usr/share/Fishing/Chars/FishingRod$newun
+echo "1" > /usr/share/Fishing/Chars/FishingFight$newun
+echo "0" > /usr/share/Fishing/Chars/Aquarium$newun
+echo "1" > /usr/share/Fishing/Chars/AquariumSpace$newun
+echo "1" > /usr/share/Fishing/Chars/FishingTime$newun
+echo "n" > /usr/share/Fishing/Chars/FishingHunger$newun
+echo "0" > /usr/share/Fishing/Chars/FishingGas$newun
+echo "a" > /usr/share/Fishing/Chars/ArenaAvg$newun
+echo "n" > /usr/share/Fishing/Chars/Subscription$newun
+echo -e "1
+0" > /usr/share/Fishing/Chars/Quest$newun
+un=$newun
+echo -e "a new person named $newun moved to town" >> /usr/share/Fishing/Sys/News
+else
+echo "what is your username?"
+read un
+passln=$(grep "$un" /usr/share/Fishing/Sys/.FishingPassword)
+if [ "$passln" == "" ]; then
+echo -e "[1;31musername not found"
+exit
+fi
+echo -n "what is your password: "
+read -s passwd1
+passwd2=$(echo "$passwd1" | openssl sha512)
+if [ "$un $passwd2" != "$passln" ]; then
+echo -e "[1;31mincorrect password"
+exit
+fi
+echo -e "login successful.[0m"
+if [ "$(ls 2>/dev/null /usr/share/Fishing/Chars/FishingLevel$un)" == "" ]; then
+echo -e "[1;31mone of you files is not found. we are making a new one"
+echo "0" > /usr/share/Fishing/Chars/FishingLevel$un
+fi
+if [ "$(ls 2>/dev/null /usr/share/Fishing/Chars/FishingRod$un)" == "" ]; then
+echo -e "[1;31mone of you files is not found. we are making a new one"
+echo "1" > /usr/share/Fishing/Chars/FishingRod$un
+fi
+if [ "$(ls 2>/dev/null /usr/share/Fishing/Chars/FishingFight$un)" == "" ]; then
+echo -e "[1;31mone of you files is not found. we are making a new one"
+echo "1" > /usr/share/Fishing/Chars/FishingFight$un
+fi
+if [ "$(ls 2>/dev/null /usr/share/Fishing/Chars/Aquarium$un)" == "" ]; then
+echo -e "[1;31mone of you files is not found. we are making a new one"
+echo "0" > /usr/share/Fishing/Chars/Aquarium$un
+fi
+if [ "$(ls 2>/dev/null /usr/share/Fishing/Chars/AquariumSpace$un)" == "" ]; then
+echo -e "[1;31mone of you files is not found. we are making a new one"
+echo "1" > /usr/share/Fishing/Chars/AquariumSpace$un
+fi
+if [ "$(ls 2>/dev/null /usr/share/Fishing/Chars/FishingTime$un)" == "" ]; then
+echo -e "[1;31mone of you files is not found. we are making a new one"
+echo "1" > /usr/share/Fishing/Chars/FishingTime$un
+fi
+if [ "$(ls 2>/dev/null /usr/share/Fishing/Chars/FishingHunger$un)" == "" ]; then
+echo -e "[1;31mone of you files is not found. we are making a new one"
+echo "n" > /usr/share/Fishing/Chars/FishingHunger$un
+fi
+if [ "$(ls 2>/dev/null /usr/share/Fishing/Chars/FishingGas$un)" == "" ]; then
+echo -e "[1;31mone of you files is not found. we are making a new one"
+echo "0" > /usr/share/Fishing/Chars/FishingGas$un
+fi
+if [ "$(ls 2>/dev/null /usr/share/Fishing/Chars/ArenaAvg$un)" == "" ]; then
+echo -e "[1;31mone of you files is not found. we are making a new one"
+echo "a" > /usr/share/Fishing/Chars/ArenaAvg$un
+fi
+if [ "$(ls 2>/dev/null /usr/share/Fishing/Chars/Subscription$un)" == "" ]; then
+echo -e "[1;31mone of you files is not found. we are making a new one"
+echo "n" > /usr/share/Fishing/Chars/Subscription$un
+fi
+if [ "$(ls 2>/dev/null /usr/share/Fishing/Chars/Quest$un)" == "" ]; then
+echo -e "[1;31mone of you files is not found. we are making a new one"
+echo -e "1
+0" > /usr/share/Fishing/Chars/Quest$un
+fi
+fi
+echo -e "[1;32myou start in a lake where everyone looses their pouches[0m"
+while [ true ]; do
+qnum=$(head -1 /usr/share/Fishing/Chars/Quest$un)
+qperc=$(tail +2 /usr/share/Fishing/Chars/Quest$un)
+if [ $un == "$(cat /usr/share/Fishing/Sys/Lotto)" ]; then
+lnnum=$(($(cat /usr/share/Fishing/Sys/Ticket | wc -l) * 2))
+echo -e "[0;32myou won the lottery and got $lnnum dollars!"
+echo "$(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + $lnnum))" > /usr/share/Fishing/Chars/FishingLevel$un
+echo -n "" > /usr/share/Fishing/Sys/Lotto
+echo -n "" > /usr/share/Fishing/Sys/Ticket
+echo "$un got $lnnum dollars in the lottery" > /usr/share/Fishing/Sys/News
+fi
+turnnum=$(cat /usr/share/Fishing/Chars/FishingTime$un)
+if [ "$(cat /usr/share/Fishing/Chars/FishingTime$un)" == "10" ]; then
+echo -e "[1;34mit is almost night and you decide to go to bed. you get the money from your aquarium tomorow[0m"
+if [ $(cat /usr/share/Fishing/Chars/FishingHunger$un) == "n" ]; then
+echo -e "you feel sooooo hungery..."
+die
+else
+echo "n" > /usr/share/Fishing/Chars/FishingHunger$un
+fi
+turnnum="0"
+echo $(($(cat /usr/share/Fishing/Chars/Aquarium$un) + $(cat /usr/share/Fishing/Chars/FishingLevel$un))) > /usr/share/Fishing/Chars/FishingLevel$un
+fi
+if [ $(cat /usr/share/Fishing/Chars/FishingHunger$un) == "n" ]; then
+echo -e "[1;31myou need to eat today[0m"
+fi
+if [ $(($RANDOM % 500)) == "0" ] && [ "$(cat /usr/share/Fishing/Sys/Lotto)" == "" ] && [ "$(cat /usr/share/Fishing/Sys/Ticket)" != "" ]; then
+echo -e "[0;32mthere's a lottery draw, but you don't know who won"
+lnnum=$((($RANDOM % $(cat /usr/share/Fishing/Sys/Ticket | wc -l)) + 1))
+winln=$(head -$lnnum /usr/share/Fishing/Sys/Ticket | tail +$lnnum)
+win=${winln% *}
+echo "$win" > /usr/share/Fishing/Sys/Lotto
+fi
+echo -en "[1;33mdo you want to go fishing [a], buy something [b], show stats [c], go to the resturant [d], go to the Monsters Here Gas Station [e]
+see your quest progress [f]"
+if [ $(cat /usr/share/Fishing/Chars/Subscription$un) == "y" ]; then
+echo -e ", read the newspaper [g] or exit game [h]?[1m"
+else
+echo -e " or exit game [g]?[1m"
+fi
+read gofish
+if [ "$gofish" == "a" ]; then
+echo "you have a level $(cat /usr/share/Fishing/Chars/FishingRod$un) fishing rod and $(cat /usr/share/Fishing/Chars/FishingGas$un) gas"
+echo -en "[0;32m"
+if [ "$qnum" == "8" ] && [ $(($qperc < 10)) == "1" ]; then
+catchnum=$((($RANDOM % ($(cat /usr/share/Fishing/Chars/FishingRod$un) + 2)) - 2))
+else
+catchnum=$((($RANDOM % ($(cat /usr/share/Fishing/Chars/FishingRod$un) + 1)) - 1))
+fi
+if [ "$catchnum" == "-2" ]; then
+echo "you catch a peice of jewlery. this adds to your quest progress"
+echo -e "$qnum
+$(($qperc + 1))" > /usr/share/Fishing/Chars/Quest$un
+elif [ "$catchnum" == "-1" ]; then
+echo "you catch a frog"
+echo -n "would you like to sell it for 1 dollar [a], eat it [b]"
+if [ "$qnum" == "1" ] && [ $(($qperc < 10)) == "1" ]; then
+echo ", donate it for your quest (for more information go to see your quest progress) [c], or put it back [d]"
+else
+echo ", or put it back [c]"
+fi
+read sellfish
+if [ "$sellfish" == "a" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 1)) > /usr/share/Fishing/Chars/FishingLevel$un
+elif [ "$sellfish" == "b" ]; then
+echo "y" > /usr/share/Fishing/Chars/FishingHunger$un
+elif [ "$sellfish" == "c" ] && [ "$qnum" == "1" ] && [ $(($qperc < 10)) == "1" ]; then
+echo -e "$qnum
+$(($qperc + 1))" > /usr/share/Fishing/Chars/Quest$un
+fi
+elif [ "$catchnum" == "0" ]; then
+echo "you catch a pouch"
+echo "do you want to open it? [y/n]"
+read openpkg
+if [ "$openpkg" == "y" ]; then
+pkgmny=$(($RANDOM % $(cat /usr/share/Fishing/Chars/FishingRod$un) + 1))
+echo "you get $pkgmny dollars"
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + $pkgmny)) > /usr/share/Fishing/Chars/FishingLevel$un
+fi
+elif [ "$catchnum" == "1" ]; then
+echo "you catch a cod"
+echo "would you like to sell it for 2 dollars and use 1 gas [a], cook it and eat it for 1 gas [b] or put it back [c]?"
+read sellfish
+if [ "$sellfish" == "a" ]; then
+if [ $(($(cat /usr/share/Fishing/Chars/FishingGas$un) > 0)) == "1" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 2)) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingGas$un) - 1)) > /usr/share/Fishing/Chars/FishingGas$un
+else
+echo -e "[1;31myou don't have enough gas[0m"
+fi
+elif [ "$sellfish" == "b" ]; then
+eat
+fi
+elif [ "$catchnum" == "2" ]; then
+echo "you catch a salmon"
+echo "would you like to sell it for 3 dollars and use 1 gas [a], eat it for 1 gas [b] or put it back [c]?"
+read sellfish
+if [ "$sellfish" == "a" ]; then
+if [ $(($(cat /usr/share/Fishing/Chars/FishingGas$un) > 0)) == "1" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 3)) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingGas$un) - 1)) > /usr/share/Fishing/Chars/FishingGas$un
+else
+echo -e "[1;31myou don't have enough gas[0m"
+fi
+elif [ "$sellfish" == "b" ]; then
+eat
+fi
+elif [ "$catchnum" == "3" ]; then
+echo "you catch a minnow. it is absoulutely worthless"
+elif [ "$catchnum" == "4" ]; then
+echo "you catch a silver cod"
+echo "would you like to sell it for 4 dollars and use 1 gas [a], put it in the aquarium and get 1 dollar per day [b], eat it for 1 gas [c] or put it back [d]?"
+read sellfish
+if [ "$sellfish" == "a" ]; then
+if [ $(($(cat /usr/share/Fishing/Chars/FishingGas$un) > 0)) == "1" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 4)) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingGas$un) - 1)) > /usr/share/Fishing/Chars/FishingGas$un
+else
+echo -e "[1;31myou don't have enough gas[0m"
+fi
+elif [ "$sellfish" == "b" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/Aquarium$un) + 1)) > /usr/share/Fishing/Chars/Aquarium$un
+if [ "$qnum" == "4" ] && [ $(($qperc < 6)) == "1" ]; then
+echo -e "$qnum
+$(($qperc + 1))" > /usr/share/Fishing/Chars/Quest$un
+fi
+elif [ "$sellfish" == "c" ]; then
+eat
+fi
+elif [ "$catchnum" == "5" ]; then
+echo "you catch a blobfish"
+echo "would you like to sell it for 5 dollars and use 2 gas [a], put it in the aquarium and get 1 dollar per day [b], eat it for 1 gas [c] or put it back [d]?"
+read sellfish
+if [ "$sellfish" == "a" ]; then
+if [ $(($(cat /usr/share/Fishing/Chars/FishingGas$un) > 1)) == "1" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 5)) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingGas$un) - 2)) > /usr/share/Fishing/Chars/FishingGas$un
+else
+echo -e "[1;31myou don't have enough gas[0m"
+fi
+elif [ "$sellfish" == "b" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/Aquarium$un) + 1)) > /usr/share/Fishing/Chars/Aquarium$un
+if [ "$qnum" == "4" ] && [ $(($qperc < 6)) == "1" ]; then
+echo -e "$qnum
+$(($qperc + 1))" > /usr/share/Fishing/Chars/Quest$un
+fi
+elif [ "$sellfish" == "c" ]; then
+eat
+fi
+elif [ "$catchnum" == "6" ]; then
+echo "you catch a pouch"
+echo "do you want to open it? [y/n]"
+read openpkg
+if [ "$openpkg" == "y" ]; then
+echo -e "[0;33minside the pouch, there is a sea scorpion[0;32m"
+fightxp=$(($RANDOM % 4))
+if [ $(($(cat /usr/share/Fishing/Chars/FishingFight$un) > $fightxp)) == "1" ]; then
+echo "you swing your sword toward the scorpion. it dodges it and tries to sting your foot but before it can get there, you chop it in two"
+if [ "$qnum" == "7" ] && [ $(($qperc < 5)) == "1" ]; then
+echo -e "$qnum
+$(($qperc + 1))" > /usr/share/Fishing/Chars/Quest$un
+fi
+else
+die
+fi
+fi
+elif [ "$catchnum" == "7" ]; then
+echo "you catch a pouch"
+echo "do you want to open it? [y/n]"
+read openpkg
+if [ "$openpkg" == "y" ]; then
+echo "inside the pouch, there is a greedyfish who steals your weapon"
+echo "1" > /usr/share/Fishing/Chars/FishingFight$un
+fi
+if [ "$qnum" == "7" ] && [ $(($qperc < 5)) == "1" ]; then
+echo -e "$qnum
+$(($qperc + 1))" > /usr/share/Fishing/Chars/Quest$un
+fi
+elif [ "$catchnum" == "8" ]; then
+echo -e "[0;33myou catch an octopus who attacks you[0;32m"
+fightxp=$(($RANDOM % 5))
+if [ $(($(cat /usr/share/Fishing/Chars/FishingFight$un) > $fightxp)) == "1" ]; then
+echo "you swing your sword toward the octopus. one of it's arms come off. it tries to bite you but you stab it first. it's beak cuts your leg but you are okay"
+echo "do you want to sell it for 7 dollars and 3 gas [a], eat it for 1 gas [b] or put it back [c]?"
+read sellfish
+if [ "$sellfish" == "a" ]; then
+if [ $(($(cat /usr/share/Fishing/Chars/FishingGas$un) > 2)) == "1" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 7)) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingGas$un) - 3)) > /usr/share/Fishing/Chars/FishingGas$un
+else
+echo -e "[1;31myou don't have enough gas[0m"
+fi
+elif [ "$sellfish" == "b" ]; then
+eat
+fi
+else
+die
+fi
+elif [ "$catchnum" == "9" ]; then
+echo "you catch a golden cod. it damages your fishing rod (-1 level)"
+echo $(($(cat /usr/share/Fishing/Chars/FishingRod$un) - 1)) > /usr/share/Fishing/Chars/FishingRod$un
+echo "would you like to sell it for 6 dollars and use 1 gas [a], put it in your aquarium and get 2 dollars per day [b] eat it for 1 gas [c] or put it back [d]?"
+read sellfish
+if [ "$sellfish" == "a" ]; then
+if [ $(($(cat /usr/share/Fishing/Chars/FishingGas$un) > 0)) == "1" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 7)) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingGas$un) - 1)) > /usr/share/Fishing/Chars/FishingGas$un
+else
+echo -e "[1;31myou don't have enough gas[0m"
+fi
+elif [ "$sellfish" == "b" ]; then
+if [ "$qnum" == "4" ] && [ $(($qperc < 6)) == "1" ]; then
+echo -e "$qnum
+$(($qperc + 1))" > /usr/share/Fishing/Chars/Quest$un
+fi
+echo $(($(cat /usr/share/Fishing/Chars/Aquarium$un) + 2)) > /usr/share/Fishing/Chars/Aquarium$un
+elif [ "$sellfish" == "c" ]; then
+eat
+fi
+elif [ "$catchnum" == "10" ]; then
+echo "you catch a giant salmon"
+echo "would you like to sell it for 8 dollars and use 3 gas [a], eat it for 1 gas [b] or put it back [c]?"
+read sellfish
+if [ "$sellfish" == "a" ]; then
+if [ $(($(cat /usr/share/Fishing/Chars/FishingGas$un) > 2)) == "1" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 8)) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingGas$un) - 3)) > /usr/share/Fishing/Chars/FishingGas$un
+else
+echo -e "[1;31myou don't have enough gas[0m"
+fi
+elif [ "$sellfish" == "b" ]; then
+eat
+fi
+elif [ "$catchnum" == "11" ]; then
+echo "you catch a salmon"
+echo "would you like to sell it for 3 dollars and use 1 gas [a], eat it for 1 gas [b] or put it back [c]?"
+read sellfish
+if [ "$sellfish" == "a" ] || [ "$sellfish" == "b" ]; then
+echo -e "[0;33mbefore you can try to cook it, it turns into a mimicfish and attacks you[0;32m"
+fightxp=$((($RANDOM % 5) + 1))
+if [ $(($(cat /usr/share/Fishing/Chars/FishingFight$un) > 3)) == "1" ]; then
+echo "the mimicfish changes into a crocodile. it opens it's giant mouth to bite you but you run around it and before it can turn around, you stab it"
+echo "it is actually worth 9 dollars but it still only takes 1 gas to cook"
+if [ "$sellfish" == "a" ]; then
+if [ $(($(cat /usr/share/Fishing/Chars/FishingGas$un) > 0)) == "1" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 9)) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingGas$un) - 1)) > /usr/share/Fishing/Chars/FishingGas$un
+else
+echo -e "[1;31myou don't have enough gas[0m"
+fi
+else
+echo "would you still like to eat it (no means you will sell it)? [y/n]"
+read eats
+if [ "$eats" == "y" ]; then
+eat
+else
+if [ $(($(cat /usr/share/Fishing/Chars/FishingGas$un) > 0)) == "1" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 9)) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingGas$un) - 1)) > /usr/share/Fishing/Chars/FishingGas$un
+else
+echo -e "[1;31myou don't have enough gas[0m"
+fi
+fi
+fi
+else
+die
+fi
+fi
+elif [ "$catchnum" == "12" ]; then
+echo "you catch a tuna"
+echo "would you like to sell it for 12 dollars and use 3 gas [a], eat it for 1 gas [b] or put it back [c]?"
+read sellfish
+if [ "$sellfish" == "a" ]; then
+if [ $(($(cat /usr/share/Fishing/Chars/FishingGas$un) > 2)) == "1" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 12)) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingGas$un) - 3)) > /usr/share/Fishing/Chars/FishingGas$un
+else
+echo -e "[1;31myou don't have enough gas[0m"
+fi
+elif [ "$sellfish" == "b" ]; then
+eat
+fi
+elif [ "$catchnum" == "13" ]; then
+echo "you catch a greedyfish who takes all your money"
+oldmny=$(cat /usr/share/Fishing/Chars/FishingLevel$un)
+echo "0" > /usr/share/Fishing/Chars/FishingLevel$un
+echo "would you like to fight it to get your money back? [y/n]"
+read fight
+if [ "$fight" == "y" ]; then
+fightxp=$(($RANDOM % 5))
+if [ $(($(cat /usr/share/Fishing/Chars/FishingFight$un) > $fightxp)) == "1" ]; then
+echo "you win but you can't eat or cook the greedyfish"
+echo "$oldmny" > /usr/share/Fishing/Chars/FishingLevel$un
+else
+die
+fi
+fi
+elif [ "$catchnum" == "14" ]; then
+echo "you catch a moneyfish who takes your weapon"
+oldmny=$(cat /usr/share/Fishing/Chars/FishingFight$un)
+echo "0" > /usr/share/Fishing/Chars/FishingFight$un
+echo "would you like to give it 30 dollars to get your weapon back? [y/n]"
+read fight
+if [ "$fight" == "y" ] && [ $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) > 29)) == "1" ]; then
+echo "$oldmny" > /usr/share/Fishing/Chars/FishingFight$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) - 20)) > /usr/share/Fishing/Chars/FishingLevel$un
+echo "the moneyfish gives you back your weapon and swims away"
+else
+echo "the moneyfish takes your weapon"
+fi
+elif [ "$catchnum" == "15" ]; then
+echo "you catch a pouch"
+echo "do you want to open it? [y/n]"
+read openpkg
+if [ "$openpkg" == "y" ]; then
+echo "inside the pouch, there is a rainbowfish"
+echo "do you want to sell it for 5 dollars and use 1 gas [a], put it in your aquarium and get 4 dollars per day [b], eat it for 1 gas [c] or put it back [d]?"
+read sellfish
+if [ "$sellfish" == "a" ]; then
+if [ $(($(cat /usr/share/Fishing/Chars/FishingGas$un) > 0)) == "1" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 5)) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingGas$un) - 1)) > /usr/share/Fishing/Chars/FishingGas$un
+else
+echo -e "[1;31myou don't have enough gas[0m"
+fi
+elif [ "$sellfish" == "b" ]; then
+if [ "$qnum" == "4" ] && [ $(($qperc < 6)) == "1" ]; then
+echo -e "$qnum
+$(($qperc + 1))" > /usr/share/Fishing/Chars/Quest$un
+fi
+echo $(($(cat /usr/share/Fishing/Chars/Aquarium$un) + 4)) > /usr/share/Fishing/Chars/Aquarium$un
+elif [ "$sellfish" == "c" ]; then
+eat
+fi
+fi
+elif [ "$catchnum" == "16" ]; then
+fightxp=$((($RANDOM % 5) + 2))
+echo -e "[0;33myou catch a piranha who attacks you[0;32m"
+if [ $(($(cat /usr/share/Fishing/Chars/FishingFight$un) > $fightxp)) == "1" ]; then
+echo "you swing your sword toward the piranha. it flops away just in time. it tries to bite you but you stab it first"
+echo "do you want to sell it for 8 dollars and use 2 gas [a], eat it for 1 gas [b], or put it back [c]?"
+read sellfish
+if [ "$sellfish" == "a" ]; then
+if [ $(($(cat /usr/share/Fishing/Chars/FishingGas$un) > 1)) == "1" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 8)) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingGas$un) - 2)) > /usr/share/Fishing/Chars/FishingGas$un
+else
+echo -e "[1;31myou don't have enough gas[0m"
+fi
+elif [ "$sellfish" == "b" ]; then
+eat
+fi
+else
+echo "you get bit in the arm and have to pay a 40 dollar medical bill"
+if [ $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) > 39)) == "1" ];then
+echo "you pay the bill"
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) - 40)) > /usr/share/Fishing/Chars/FishingLevel$un
+else
+echo -e "[0;31myou don't have enough money[0m"
+die
+fi
+fi
+elif [ "$catchnum" == "17" ]; then
+echo "you catch a whale"
+if [ $(($(cat /usr/share/Fishing/Chars/FishingRod$un) > 29)) == "1" ]; then
+echo "would you like to sell it for 30 dollars and use 7 gas [a], (it can't fit in an aquarium so no will give you no money)? [y/n]"
+read sellfish
+if [ "$sellfish" == "a" ]; then
+if [ $(($(cat /usr/share/Fishing/Chars/FishingGas$un) > 1)) == "1" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 8)) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingGas$un) - 2)) > /usr/share/Fishing/Chars/FishingGas$un
+else
+echo -e "[1;31myou don't have enough gas[0m"
+fi
+elif [ "$sellfish" == "b" ]; then
+eat
+fi
+else
+echo "it gets away"
+echo $(($(cat /usr/share/Fishing/Chars/FishingRod$un) - 2)) > /usr/share/Fishing/Chars/FishingRod$un
+fi
+elif [ "$catchnum" == "18" ]; then
+fightxp=$((($RANDOM % 5) + 3))
+echo -e "[0;33myou catch a giant crocodile who wants to get past you[0;32m"
+if [ $(($(cat /usr/share/Fishing/Chars/FishingFight$un) > $fightxp)) == "1" ]; then
+echo "you swing your sword toward the crocodile. it dodges, but falls into the water"
+else
+echo "it gets past you and eats all the fish in your aquarium"
+echo "0" > /usr/share/Fishing/Chars/Aquarium$un
+echo "There's a croccodile on the loose" >> /usr/share/Fishing/Sys/News
+fi
+elif [ "$catchnum" == "19" ]; then
+echo -e "[0;33myou catch a shark who attacks you[0;32m"
+fightxp=$((($RANDOM % 5) + 4))
+if [ $(($(cat /usr/share/Fishing/Chars/FishingFight$un) > $fightxp)) == "1" ]; then
+echo "it flops twords you and tries to bite you. you dodge its attack and stab it"
+echo "do you want to sell it all for 10 dollars and 3 gas [a], eat it for 1 gas [b], just sell its teeth for 3 dollars [c] or put it back [d]?"
+read sellfish
+if [ "$sellfish" == "a" ]; then
+if [ $(($(cat /usr/share/Fishing/Chars/FishingGas$un) > 2)) == "1" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 10)) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingGas$un) - 3)) > /usr/share/Fishing/Chars/FishingGas$un
+else
+echo -e "[1;31myou don't have enough gas[0m"
+fi
+elif [ "$sellfish" == "b" ]; then
+eat
+elif [ "$sellfish" == "c" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 3)) > /usr/share/Fishing/Chars/FishingLevel$un
+fi
+else
+die
+fi
+fi
+turnnum=$(($turnnum + 1))
+echo -en "[0m"
+elif [ "$gofish" == "b" ]; then
+echo -e "[0;36myou have $(cat /usr/share/Fishing/Chars/FishingLevel$un) dollars"
+echo "do you want to upgrade your fishing rod for $(($(cat /usr/share/Fishing/Chars/FishingRod$un) * 2)) dollars [a], upgrade your weapon for $(($(cat /usr/share/Fishing/Chars/FishingRod$un) * 4)) dollars [b], upgrade your aquarium for $(($(cat /usr/share/Fishing/Chars/AquariumSpace$un) * 10)) dollars [c], get a newspaper subscription for 5 dollars [d], buy lottery tickets for 1 dollar (the prize is $(($(cat /usr/share/Fishing/Sys/Ticket | wc -l) * 2)) dollars) [e] or exit shop [f]"
+read ugrade
+if [ "$ugrade" == "a" ] && [ $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) > ($(cat /usr/share/Fishing/Chars/FishingRod$un) * 2) - 1)) == "1" ];then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) - ($(cat /usr/share/Fishing/Chars/FishingRod$un) * 2))) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingRod$un) + 1)) > /usr/share/Fishing/Chars/FishingRod$un
+if [ "$qnum" == "2" ] && [ $(($qperc < 2)) == "1" ]; then
+echo -e "$qnum
+$(($qperc + 1))" > /usr/share/Fishing/Chars/Quest$un
+fi
+turnnum=$(($turnnum + 1))
+elif [ "$ugrade" == "b" ] && [ $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) > ($(cat /usr/share/Fishing/Chars/FishingRod$un) * 4) - 1)) == "1" ];then
+echo $(($(cat /usr/share/Fishing/Chars/FishingFight$un) + 1)) > /usr/share/Fishing/Chars/FishingFight$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) - ($(cat /usr/share/Fishing/Chars/FishingRod$un) * 4))) > /usr/share/Fishing/Chars/FishingLevel$un
+if [ "$qnum" == "6" ] && [ $(($qperc < 2)) == "1" ]; then
+echo -e "$qnum
+$(($qperc + 1))" > /usr/share/Fishing/Chars/Quest$un
+fi
+turnnum=$(($turnnum + 1))
+elif [ "$ugrade" == "c" ] && [ $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) > ($(cat /usr/share/Fishing/Chars/AquariumSpace$un) * 10) - 1)) == "1" ];then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) - ($(cat /usr/share/Fishing/Chars/AquariumSpace$un) * 10))) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/AquariumSpace$un) + 1)) > /usr/share/Fishing/Chars/AquariumSpace$un
+turnnum=$(($turnnum + 1))
+elif [ "$ugrade" == "d" ] && [ $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) > 4)) == "1" ]; then
+echo "y" > /usr/share/Fishing/Chars/Subscription$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) - 5)) > /usr/share/Fishing/Chars/FishingLevel$un
+turnnum=$(($turnnum + 1))
+elif [ "$ugrade" == "e" ]; then
+echo "how many do you want to buy?"
+read tickets
+t=0
+ticnum=0
+if [ $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) > $tickets - 1)) == "1" ]; then
+while [ $(($t < $tickets)) == "1" ]; do
+ticnum=$(($ticnum + 1))
+if [ "$(cat /usr/share/Fishing/Sys/Ticket | grep $ticnum)" == "" ]; then
+echo "$un $ticnum" >> /usr/share/Fishing/Sys/Ticket
+t=$(($t + 1))
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) - 1)) > /usr/share/Fishing/Chars/FishingLevel$un
+fi
+done
+else
+echo -e "[1;31myou don't have enough money[0m"
+fi
+elif [ "$ugrade" == "f" ]; then
+echo -e "back to the main menu[0m"
+else
+echo -e "[1;31myou can't buy that[0m"
+fi
+elif [ "$gofish" == "c" ]; then
+echo -e "[1;36myou have $(cat /usr/share/Fishing/Chars/FishingLevel$un) dollars"
+echo "you have a level $(cat /usr/share/Fishing/Chars/FishingRod$un) fishing rod"
+echo "you have $(cat /usr/share/Fishing/Chars/FishingFight$un) atack power"
+echo "you get $(cat /usr/share/Fishing/Chars/Aquarium$un) dollars from your aquarium every day"
+echo "you have a level $(cat /usr/share/Fishing/Chars/AquariumSpace$un) aquarium"
+echo "you have $(cat /usr/share/Fishing/Chars/FishingGas$un) gas"
+echo -e "it is move $(($turnnum + 1))/10[0;m"
+elif [ "$gofish" == "d" ]; then
+echo "you go to the resturant and have to pay 3 dollars"
+if [ $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) > 2)) == "1" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) - 3)) > /usr/share/Fishing/Chars/FishingLevel$un
+echo "y" > /usr/share/Fishing/Chars/FishingHunger$un
+turnnum=$(($turnnum + 1))
+else
+echo -e "[1;31myou don't have enough money[0m"
+fi
+elif [ "$gofish" == "e" ]; then
+if [ $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) > 0)) == "1" ]; then
+echo "you have $(cat /usr/share/Fishing/Chars/FishingFight$un) fighting xp"
+oplevel=$((($RANDOM % 5) + ($(cat /usr/share/Fishing/Chars/FishingFight$un) - 2)))
+if [ $(("$oplevel" < 1)) == "1" ]; then
+oplevel=1
+fi
+echo -e "the monster has $oplevel fighting xp
+repeat these letters as fast as you can"
+echo "3..."
+sleep 1
+echo "2..."
+sleep 1
+echo "1..."
+sleep 1
+echo "go"
+turn=0
+cap=$(cat /usr/share/Fishing/Chars/FishingFight$un)
+start=$SECONDS
+while [ $(($SECONDS < ($start + 10))) == "1" ]; do
+lettern=$(($RANDOM % 25))
+if [ $lettern == "0" ]; then
+letter="a"
+elif [ $lettern == "1" ]; then
+letter="b"
+elif [ $lettern == "2" ]; then
+letter="c"
+elif [ $lettern == "3" ]; then
+letter="d"
+elif [ $lettern == "4" ]; then
+letter="e"
+elif [ $lettern == "5" ]; then
+letter="f"
+elif [ $lettern == "6" ]; then
+letter="g"
+elif [ $lettern == "7" ]; then
+letter="h"
+elif [ $lettern == "8" ]; then
+letter="i"
+elif [ $lettern == "9" ]; then
+letter="j"
+elif [ $lettern == "10" ]; then
+letter="k"
+elif [ $lettern == "11" ]; then
+letter="l"
+elif [ $lettern == "12" ]; then
+letter="m"
+elif [ $lettern == "13" ]; then
+letter="n"
+elif [ $lettern == "14" ]; then
+letter="o"
+elif [ $lettern == "15" ]; then
+letter="p"
+elif [ $lettern == "16" ]; then
+letter="q"
+elif [ $lettern == "17" ]; then
+letter="r"
+elif [ $lettern == "18" ]; then
+letter="s"
+elif [ $lettern == "19" ]; then
+letter="t"
+elif [ $lettern == "20" ]; then
+letter="u"
+elif [ $lettern == "21" ]; then
+letter="v"
+elif [ $lettern == "22" ]; then
+letter="w"
+elif [ $lettern == "23" ]; then
+letter="x"
+elif [ $lettern == "24" ]; then
+letter="y"
+elif [ $lettern == "25" ]; then
+letter="z"
+fi
+echo "$letter"
+read charletter
+if [ "$charletter" == $letter ]; then
+echo "correct"
+turn=$((turn + 1));
+else
+echo "incorrect"
+fi
+done
+if [ $(cat /usr/share/Fishing/Chars/ArenaAvg$un) != "a" ]; then
+if [ $(($turn - $(cat /usr/share/Fishing/Chars/ArenaAvg$un) + $(cat /usr/share/Fishing/Chars/FishingFight$un) > $oplevel - 1)) == "1" ]; then
+echo "you win and get $(($oplevel * 3)) gas"
+echo $(($(cat /usr/share/Fishing/Chars/FishingGas$un) + ($oplevel * 3))) > /usr/share/Fishing/Chars/FishingGas$un
+echo -e "$un won a battle against a level $oplevel monster" >> /usr/share/Fishing/Sys/News
+if [ "$qnum" == "3" ] && [ $(($qperc < 10)) == "1" ]; then
+echo -e "$qnum
+$(($qperc + 1))" > /usr/share/Fishing/Chars/Quest$un
+fi
+turnnum=$(($turnnum + 1))
+else
+echo "you loose and have to pay 1 dollar"
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) - 1)) > /usr/share/Fishing/Chars/FishingLevel$un
+echo -e "$un lost a battle against a level $oplevel fighter" >> /usr/share/Fishing/Sys/News
+turnnum=$(($turnnum + 1))
+fi
+else
+echo "your opponent runs away before you can get your prize"
+fi
+if [ $(cat /usr/share/Fishing/Chars/ArenaAvg$un) == "a" ]; then
+echo "$turn" > /usr/share/Fishing/Chars/ArenaAvg$un
+else
+echo "$((($turn + $(cat /usr/share/Fishing/Chars/ArenaAvg$un)) / 2))" > /usr/share/Fishing/Chars/ArenaAvg$un
+fi
+else
+echo -e "[1;31myou don't have enough money[0m"
+fi
+elif [ "$gofish" == "f" ]; then
+echo -e "[0;36myou are on quest #$qnum"
+if [ "$qnum" == "1" ] && [ $(($qperc < 10)) == "1" ]; then
+echo "your quest is to find 10 frogs and donate them to scientists. your reward will be 15 dollars"
+echo "so far, you have donated $qperc frogs"
+elif [ "$qnum" == "1" ]; then
+echo -e "you have completed it and you get 15 dollars from it
+your next quest is to upgrade your fishing rod twice. your reward will be 10 dollars"
+echo -e "2
+0" > /usr/share/Fishing/Chars/Quest$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 15)) > /usr/share/Fishing/Chars/FishingLevel$un
+turnnum=$(($turnnum + 1))
+elif [ "$qnum" == "2" ] && [ $(($qperc < 2)) == "1" ]; then
+echo "your quest is to upgrade your fishing rod twice. when you upgrade your fishing rod, you unlock new fish. your reward will be 10 dollars"
+echo "so far, you have upgraded it $qperc times"
+elif [ "$qnum" == "2" ]; then
+echo -e "you have completed it and you get 10 dollars from it
+your next quest is to defeat 10 monsters at the Monsters Here Gas Station"
+echo -e "3
+0" > /usr/share/Fishing/Chars/Quest$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 10)) > /usr/share/Fishing/Chars/FishingLevel$un
+turnnum=$(($turnnum + 1))
+elif [ "$qnum" == "3" ] && [ $(($qperc < 10)) == "1" ]; then
+echo "your quest is to defeat 10 monsters at the Monsters Here Gas Station. your reward will be 20 dollars"
+echo "so far, you have defeated $qperc monsters"
+elif [ "$qnum" == "3" ]; then
+echo -e "you have completed it and you get 20 dollars from it
+your next quest is to put 6 new fish in your aquarium"
+echo -e "4
+0" > /usr/share/Fishing/Chars/Quest$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 20)) > /usr/share/Fishing/Chars/FishingLevel$un
+turnnum=$(($turnnum + 1))
+elif [ "$qnum" == "4" ] && [ $(($qperc < 6)) == "1" ]; then
+echo "your quest is to put 6 new fish in your aquarium. your reward will be 15 dollars"
+echo "so far, you have put $qperc fish in your aquarium"
+elif [ "$qnum" == "4" ]; then
+echo -e "you have completed it and you get 15 dollars from it
+your next quest is to buy 5 things from ads in the newspaper (you will need a newspaper subscription)"
+echo -e "5
+0" > /usr/share/Fishing/Chars/Quest$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 15)) > /usr/share/Fishing/Chars/FishingLevel$un
+turnnum=$(($turnnum + 1))
+elif [ "$qnum" == "5" ] && [ $(($qperc < 5)) == "1" ]; then
+echo "your quest is to buy 5 things in the newspaper (you need a subscription). these are less expensive than at the shop. your reward will be 20 dollars"
+echo "so far, you have bought $qperc things"
+elif [ "$qnum" == "5" ]; then
+echo -e "you have completed it and you get 20 dollars from it
+your next quest is to upgrade your weapon twice"
+echo -e "6
+0" > /usr/share/Fishing/Chars/Quest$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 20)) > /usr/share/Fishing/Chars/FishingLevel$un
+turnnum=$(($turnnum + 1))
+elif [ "$qnum" == "6" ] && [ $(($qperc < 2)) == "1" ]; then
+echo "your quest is to upgrade your weapon twice. this will make it so you get more gas at the Monsters Here Gas Station. your reward will be 15 dollars"
+echo "so far, you have upgraded it $qperc times"
+elif [ "$qnum" == "6" ]; then
+echo -e "you have completed it and you get 15 dollars from it
+your next quest is to catch 5 sea scorpions"
+echo -e "7
+0" > /usr/share/Fishing/Chars/Quest$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 15)) > /usr/share/Fishing/Chars/FishingLevel$un
+turnnum=$(($turnnum + 1))
+elif [ "$qnum" == "7" ] && [ $(($qperc < 5)) == "1" ]; then
+echo "your quest is to catch 5 sea scorpions. your reward will be 25 dollars"
+echo "so far, you have caught $qperc sea scorpions"
+elif [ "$qnum" == "7" ]; then
+echo -e "you have completed it and you get 25 dollars from it
+your next quest is to find 10 peices of jewlery"
+echo -e "8
+0" > /usr/share/Fishing/Chars/Quest$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 25)) > /usr/share/Fishing/Chars/FishingLevel$un
+turnnum=$(($turnnum + 1))
+elif [ "$qnum" == "8" ] && [ $(($qperc < 10)) == "1" ]; then
+echo "your quest is to find 10 peices of jewlery. your reward will be 30 dollars"
+echo "so far, you have caught $qperc peices of jewlery"
+elif [ "$qnum" == "8" ]; then
+echo -e "you have completed it and you get 30 dollars from it
+your next quest is nothing"
+echo -e "9
+0" > /usr/share/Fishing/Chars/Quest$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 30)) > /usr/share/Fishing/Chars/FishingLevel$un
+turnnum=$(($turnnum + 1))
+elif [ "$qnum" == "9" ] && [ $(($qperc < 10)) == "1" ]; then
+echo "you have no quest. your reward will not be 25 dollars"
+echo "so far, you have done $qperc nothings"
+elif [ "$qnum" == "8" ]; then
+echo -e "you have completed it and you get 25 dollars from it"
+echo -e "9
+0" > /usr/share/Fishing/Chars/Quest$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) + 25)) > /usr/share/Fishing/Chars/FishingLevel$un
+turnnum=$(($turnnum + 1))
+fi
+elif [ "$gofish" == "g" ] && [ $(cat /usr/share/Fishing/Chars/Subscription$un) == "n" ]; then
+break
+elif [ "$gofish" == "g" ] && [ $(cat /usr/share/Fishing/Chars/Subscription$un) == "y" ]; then
+if [ "$(cat /usr/share/Fishing/Sys/News)" == "" ]; then
+echo "there are no interesting headlines"
+else
+echo -e "these are these headlines:
+$(cat /usr/share/Fishing/Sys/News)"
+ad=$(($RANDOM % 6))
+if [ $ad = "1" ]; then
+echo -e "an advertisement catches your eye. you can upgrade your aquarium for just $((($(cat /usr/share/Fishing/Chars/AquariumSpace$un) * 10) - 5)) dollars
+would you like to buy it? [y/n]"
+read ugrade
+if [ "$ugrade" == "y" ] && [ $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) > ($(cat /usr/share/Fishing/Chars/AquariumSpace$un) * 10) - 6)) == "1" ];then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) - (($(cat /usr/share/Fishing/Chars/AquariumSpace$un) * 10) - 5))) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/AquariumSpace$un) + 1)) > /usr/share/Fishing/Chars/AquariumSpace$un
+turnnum=$(($turnnum + 1))
+if [ "$qnum" == "5" ] && [ $(($qperc < 5)) == "1" ]; then
+echo -e "$qnum
+$(($qperc + 1))" > /usr/share/Fishing/Chars/Quest$un
+fi
+elif [ "$ugrade" == "y" ]; then
+echo "you don't have enough money"
+fi
+elif [ $ad = "2" ]; then
+echo -e "an advertisement catches your eye. you can upgrade your weapon for just $(($(cat /usr/share/Fishing/Chars/FishingRod$un) * 3)) dollars
+would you like to buy it? [y/n]"
+read ugrade
+if [ "$ugrade" == "y" ] && [ $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) > (($(cat /usr/share/Fishing/Chars/FishingRod$un) * 3) - 1))) == "1" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) - ($(cat /usr/share/Fishing/Chars/FishingRod$un) * 3))) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingFight$un) + 1)) > /usr/share/Fishing/Chars/FishingFight$un
+if [ "$qnum" == "5" ] && [ $(($qperc < 5)) == "1" ]; then
+echo -e "$qnum
+$(($qperc + 1))" > /usr/share/Fishing/Chars/Quest$un
+elif [ "$qnum" == "6" ] && [ $(($qperc < 2)) == "1" ]; then
+echo -e "$qnum
+$(($qperc + 1))" > /usr/share/Fishing/Chars/Quest$un
+fi
+turnnum=$(($turnnum + 1))
+elif [ "$ugrade" == "y" ]; then
+echo "you don't have enough money"
+fi
+elif [ $ad = "3" ]; then
+echo -e "an advertisement catches your eye. you can upgrade your fishing rod for just $((($(cat /usr/share/Fishing/Chars/FishingRod$un) * 1) + ($(cat /usr/share/Fishing/Chars/FishingRod$un) / 2))) dollars
+would you like to buy it? [y/n]"
+read ugrade
+if [ "$ugrade" == "y" ] && [ $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) > (($(cat /usr/share/Fishing/Chars/FishingRod$un) * 1) + ($(cat /usr/share/Fishing/Chars/FishingRod$un) / 2) - 1))) == "1" ]; then
+echo $(($(cat /usr/share/Fishing/Chars/FishingLevel$un) - (($(cat /usr/share/Fishing/Chars/FishingRod$un) * 1) + ($(cat /usr/share/Fishing/Chars/FishingRod$un) / 2)))) > /usr/share/Fishing/Chars/FishingLevel$un
+echo $(($(cat /usr/share/Fishing/Chars/FishingRod$un) + 1)) > /usr/share/Fishing/Chars/FishingRod$un
+if [ "$qnum" == "2" ] && [ $(($qperc < 2)) == "1" ]; then
+echo -e "$qnum
+$(($qperc + 1))" > /usr/share/Fishing/Chars/Quest$un
+elif [ "$qnum" == "5" ] && [ $(($qperc < 5)) == "1" ]; then
+echo -e "$qnum
+$(($qperc + 1))" > /usr/share/Fishing/Chars/Quest$un
+fi
+turnnum=$(($turnnum + 1))
+elif [ "$ugrade" == "y" ]; then
+echo "you don't have enough money"
+fi
+fi
+fi
+echo -n "" > /usr/share/Fishing/Sys/News
+elif [ "$gofish" == "h" ] && [ $(cat /usr/share/Fishing/Chars/Subscription$un) == "y" ]; then
+break
+fi
+if [ $(($(cat /usr/share/Fishing/Chars/Aquarium$un) > ($(cat /usr/share/Fishing/Chars/AquariumSpace$un) * 5))) == "1" ]; then
+echo -e "[1;31myour aquarium is too full. you should upgrade it[0m"
+echo $(($(cat /usr/share/Fishing/Chars/AquariumSpace$un) * 5)) > /usr/share/Fishing/Chars/Aquarium$un
+if [ "$qnum" == "4" ] && [ $(($qperc < 6)) == "1" ]; then
+echo -e "$qnum
+$(($qperc))" > /usr/share/Fishing/Chars/Quest$un
+fi
+fi
+echo $turnnum > /usr/share/Fishing/Chars/FishingTime$un
+done
+fi
+clear
